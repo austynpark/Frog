@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Frog.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Frog.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\FrogEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Frog">
+      <UniqueIdentifier>{44801F75-A1D4-3428-A712-D1F2EB0D448A}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Frog\Frog.Build.cs">
+      <Filter>Source\Frog</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Frog\Frog.cpp">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Frog\Frog.h">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Frog\FrogCharacter.cpp">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Frog\FrogCharacter.h">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Frog\FrogGameMode.cpp">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Frog\FrogGameMode.h">
+      <Filter>Source\Frog</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

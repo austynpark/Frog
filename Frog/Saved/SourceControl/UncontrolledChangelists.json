@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/qkrru/Desktop/KyungookPark24/UE5 Playground/Frog/Frog/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/5/AE/Q15FPCQM71Q5GNKA7N1HGI.uasset",
+				"C:/Users/qkrru/Desktop/KyungookPark24/UE5 Playground/Frog/Frog/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/8/4X/RJ1TA6RCBKBR3ZRZPQLUOZ.uasset",
+				"C:/Users/qkrru/Desktop/KyungookPark24/UE5 Playground/Frog/Frog/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/2/YG/BYGS9CBTYLM40J3I09LGWV.uasset",
+				"C:/Users/qkrru/Desktop/KyungookPark24/UE5 Playground/Frog/Frog/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset",
+				"C:/Users/qkrru/Desktop/KyungookPark24/UE5 Playground/Frog/Frog/Content/Characters/Mannequins/Meshes/SK_Mannequin.uasset"
+			]
+		}
+	]
+}

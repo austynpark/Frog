@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Frog",
+			"Path": "..\\Source\\Frog.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "FrogEditor",
+			"Path": "..\\Source\\FrogEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

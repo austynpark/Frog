@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\qkrru\\desktop\\kyungookpark24\\ue5 playground\\frog\\frog\\intermediate\\build\\win64\\unrealeditor\\inc\\frog\\uht\\froggamemode.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\qkrru\\desktop\\kyungookpark24\\ue5 playground\\frog\\frog\\intermediate\\build\\win64\\x64\\frogeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\qkrru\\desktop\\kyungookpark24\\ue5 playground\\frog\\frog\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\frog\\definitions.frog.h",
+            "c:\\users\\qkrru\\desktop\\kyungookpark24\\ue5 playground\\frog\\frog\\source\\frog\\froggamemode.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\serverstatreplicator.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamemodebase.generated.h",
+            "c:\\users\\qkrru\\desktop\\kyungookpark24\\ue5 playground\\frog\\frog\\intermediate\\build\\win64\\unrealeditor\\inc\\frog\\uht\\froggamemode.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
