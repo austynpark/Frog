@@ -14,6 +14,13 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define FROG_FrogCharacter_generated_h
 
+#define FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDrawDebugSwinging); \
+	DECLARE_FUNCTION(execCalcSwinging); \
+	DECLARE_FUNCTION(execStopSwinging); \
+	DECLARE_FUNCTION(execStartSwinging);
+
+
 #define FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAFrogCharacter(); \
@@ -39,6 +46,7 @@ public: \
 #define FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_INCLASS_NO_PURE_DECLS \
 	FID_Users_qkrru_Desktop_KyungookPark24_UE5_Playground_Frog_Frog_Source_Frog_FrogCharacter_h_21_ENHANCED_CONSTRUCTORS \
 private: \

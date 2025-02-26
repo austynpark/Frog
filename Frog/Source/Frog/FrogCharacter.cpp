@@ -20,7 +20,8 @@ AFrogCharacter::AFrogCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-		
+	
+	bAsyncPhysicsTickEnabled = true;
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -33,7 +34,7 @@ AFrogCharacter::AFrogCharacter()
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
 	GetCharacterMovement()->JumpZVelocity = 700.f;
-	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->AirControl = 1.00f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
@@ -92,26 +93,153 @@ void AFrogCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	}
 }
 
+void AFrogCharacter::StartSwinging(const FVector& SwingingPoint)
+{
+	SwingPoint = SwingingPoint;
+	WebLength = (SwingPoint - GetActorLocation()).Size();
+	IsSwinging = true;
+	SwingStartTime = GetWorld()->GetTimeSeconds();
+}
+
+void AFrogCharacter::StopSwinging()
+{
+	IsSwinging = false;
+}
+
+void AFrogCharacter::CalcSwinging()
+{
+	FVector ActorLocation = GetActorLocation();
+	FVector ActorVelocity = GetVelocity();
+
+	RadialDir = ActorLocation - SwingPoint;
+
+	if (UseMethod1)
+	{
+		UE_LOG(LogTemp, Warning,TEXT("DOT:%f"), RadialDir.Dot(ActorVelocity));
+
+		float ElapsedTime = GetWorld()->GetTimeSeconds() - SwingStartTime;
+
+		FVector DampingForce = FMath::Clamp(RadialDir.Dot(ActorVelocity), -200000.0f, 200000.0f) * RadialDir.GetSafeNormal() * -FMath::Max(0.0f ,DampingCoefficient - ElapsedTime * DampingDecayRate);
+
+		SwingDirection = DampingForce + GetActorForwardVector() * LaunchSpeed;
+
+		GetCharacterMovement()->AddForce(DampingForce + GetActorForwardVector() * LaunchSpeed);
+	}
+	else
+	{
+		// 1. Radial Direction (Anchor to Character)
+		RadialDir = (SwingPoint - ActorLocation).GetSafeNormal();
+		float CurrentLength = FVector::Distance(ActorLocation, SwingPoint);
+
+		// 2. Spring Force (Hooke's Law - Pulls toward anchor)
+		float SpringForceMagnitude = SpringStiffness * FMath::Max(CurrentLength - WebLength, 0.f);
+		FVector SpringForce = SpringForceMagnitude * RadialDir;
+
+		// 3. Damping (Radial only)
+		float RadialSpeed = FVector::DotProduct(ActorVelocity, RadialDir);
+		FVector DampingForce = -DampingCoefficient * RadialSpeed * RadialDir;
+
+		FVector TotalForce = AddDampingForce ? DampingForce : FVector::ZeroVector;
+		TotalForce += AddSpringForce ? SpringForce : FVector::ZeroVector;
+
+		GetCharacterMovement()->AddForce(TotalForce + GetActorForwardVector() * LaunchSpeed);
+	}
+
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Moving Ground"));
+		StopSwinging();
+		return;
+	}
+
+	//// Calculate radial direction
+	//RadialDir = (SwingPoint - ActorLocation).GetSafeNormal();
+
+	//// Calculate tangent direction (XZ-plane example)
+	//TangentDir = FVector(-RadialDir.Z, 0, RadialDir.X).GetSafeNormal();
+
+	//// Decompose velocity into radial/tangential components
+	//float RadialSpeed = FVector::DotProduct(ActorVelocity, RadialDir);
+	//FVector RadialVelocity = RadialDir * RadialSpeed;
+	//TangentialVelocity = ActorVelocity - RadialVelocity;
+
+	//// Determine swing direction
+	//if (TangentialVelocity.Size() > 0.1f) {
+	//	// Use existing tangential velocity
+	//	SwingDirection = TangentialVelocity.GetSafeNormal();
+	//}
+	//else {
+	//	// Use gravity-driven direction based on pendulum angle
+	//	float Theta = FMath::Atan2(RadialDir.X, RadialDir.Z);
+	//	UE_LOG(LogTemp, Warning, TEXT("Theta: % f"), Theta);
+	//	SwingDirection = (Theta > 0) ? -TangentDir : TangentDir;
+	//}
+
+	//float CurrentDistance = (SwingPoint - ActorLocation).Size();
+
+	//FVector SpringForce = SpringStiffness * (CurrentDistance - WebLength) * RadialDir;
+	//
+	//// Damping Force
+	//FVector VelocityDirection = GetVelocity().GetSafeNormal();
+	//FVector DampingForce = -DampingCoefficient * RadialVelocity * RadialDir;
+
+	//GetCharacterMovement()->AddForce(DampingForce + SpringForce);
+
+	//UE_LOG(LogTemp, Warning, TEXT("Damping Force: %s"), *DampingForce.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("Spring Force: %s"), *SpringForce.ToString());
+
+	//DrawDebugLine(GetWorld(), ActorLocation, ActorLocation + DampingForce, FColor::Emerald);
+	//DrawDebugLine(GetWorld(), ActorLocation, ActorLocation + SpringForce, FColor::Green);
+}
+
+void AFrogCharacter::DrawDebugSwinging()
+{
+	FVector ActorLocation = GetActorLocation();
+	// Draw radial direction (red)
+	DrawDebugLine(GetWorld(), ActorLocation, ActorLocation + RadialDir * 100, FColor::Emerald);
+
+	// Draw tangent direction (green)
+	// DrawDebugLine(GetWorld(), ActorLocation, ActorLocation + TangentDir * 100, FColor::Green);
+
+	// Draw Swing direction (blue)
+	DrawDebugLine(GetWorld(), ActorLocation, ActorLocation + SwingDirection * 100, FColor::Blue);
+}
+
 void AFrogCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (Controller != nullptr)
+	if (Controller != nullptr )
 	{
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
+		//if (!IsSwinging)
+		{
+			// find out which way is forward
+			const FRotator Rotation = Controller->GetControlRotation();
+			const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+			// get forward vector
+			const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 
-		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
+			// get right vector 
+			const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+			// add movement 
+
+			AddMovementInput(ForwardDirection, MovementVector.Y);
+			AddMovementInput(RightDirection, MovementVector.X);
+		}
+		//else
+		{
+			//FVector InputDirection = GetActorForwardVector() * MovementVector.Y + GetActorRightVector() * MovementVector.X;
+
+			//// Project input onto the swing's tangent plane
+			//FVector ProjectedInput = FVector::VectorPlaneProject(InputDirection, RadialDir);
+
+			//// Apply tangential control force
+			//FVector InputForce = ProjectedInput * SwingControlForce;
+			//GetCharacterMovement()->AddForce(InputForce);
+		}
 	}
 }
 

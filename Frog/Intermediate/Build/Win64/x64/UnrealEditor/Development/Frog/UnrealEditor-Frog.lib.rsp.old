@@ -1,0 +1,18 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-Frog.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\FrogEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\Frog.init.gen.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\FrogCharacter.gen.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\FrogGameMode.gen.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\Frog.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\FrogCharacter.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\FrogGameMode.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\PerModuleInline.gen.cpp.obj"
+"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\Default.rc2.res"
+/OUT:"C:\Users\qkrru\Desktop\KyungookPark24\UE5 Playground\Frog\Frog\Intermediate\Build\Win64\x64\UnrealEditor\Development\Frog\UnrealEditor-Frog.lib"

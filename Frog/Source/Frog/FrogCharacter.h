@@ -44,6 +44,53 @@ class AFrogCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	FVector RadialDir;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	FVector TangentDir;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	FVector SwingPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	FVector SwingDirection;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	FVector TangentialVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	bool IsSwinging = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	float WebLength = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Swinging, meta = (AllowPrivateAccess = "true"))
+	float LaunchSpeed = 700.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging1, meta = (AllowPrivateAccess = "true"))
+	bool UseMethod1 = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging1, meta = (AllowPrivateAccess = "true"))
+	float SwingStartTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Swinging2, meta = (AllowPrivateAccess = "true"))
+	float DampingDecayRate = 10.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Swinging2, meta = (AllowPrivateAccess = "true"))
+	float DampingCoefficient = 50.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Swinging2, meta = (AllowPrivateAccess = "true"))
+	float SpringStiffness = 700.0f;
+
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging2, meta = (AllowPrivateAccess = "true"))
+	bool AddSpringForce = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Swinging2, meta = (AllowPrivateAccess = "true"))
+	bool AddDampingForce = true;
+
 public:
 	AFrogCharacter();
 	
@@ -68,5 +115,17 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+private:
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Start Swinging"), Category = Swinging)
+	void StartSwinging(const FVector& SwingingPoint);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Stop Swinging"), Category = Swinging)
+	void StopSwinging();
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Calc Swinging Direction"), Category = Swinging)
+	void CalcSwinging();
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Debug Swinging Direction"), Category = Swinging)
+	void DrawDebugSwinging();
 };
 
